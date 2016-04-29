@@ -3,10 +3,11 @@
   "description": "",
   "main": "app.js",
   "authors": [
-    "Cade Nichols <cade@cadenichols.com>"
+    "Yanick Moregola <ymoregola@gmail.com>"
   ],
+  "start": "node app.js",
   "license": "ISC",
-  "homepage": "https://github.com/CodingHouseFI/todo-from-scratch",
+  "homepage": "https://github.com/ymoregola/banking-app-with-backend",
   "ignore": [
     "**/.*",
     "node_modules",
