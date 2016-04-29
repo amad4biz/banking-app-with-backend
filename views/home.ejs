@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+  <script src="/js/module.js"></script>
+  <script src="/js/controllers.js"></script>
+  <script src="/js/services.js"></script>
+
+</head>
+
+<body ng-app='myApp' ng-controller='mainCtrl'>  
+
+  <div class="navbar">
+    <h2 class="title">Banking Application</h2>
+  </div>
+
+  <div class="entries">
+    <h3>Add Transaction</h3>
+
+    <div class="form-group col-xs-6 col-md-3">
+      <label>Date</label>
+      <input type="date" class="form-control" placeholder="Date" ng-model='newTransaction.date'>
+    </div>  
+
+    <div class="form-group col-xs-6 col-md-3">
+      <label>Description</label>
+      <input type="text" class="form-control" placeholder="Description" ng-model='newTransaction.description'>
+    </div>  
+
+    <div class="form-group col-xs-6 col-md-3">
+      <label>Debit</label>
+      <input type="number" class="form-control" placeholder="Amount" ng-model='newTransaction.debit'>
+    </div>  
+
+    <div class="form-group col-xs-6 col-md-3">
+      <label>Credit</label>
+      <input type="number" class="form-control" placeholder="Amount" ng-model='newTransaction.credit'>
+    </div>  
+
+    <button class="btn btn-primary" ng-click='addTransaction()'>Submit</button>
+
+  </div>
+
+  <!--current balance-->
+    <div class="total-balance">
+      <h3> Your current balance is ${{totalBalance}}.</h3>
+    </div>
+
+  <!-- search -->
+    <div class="search-div">
+      <input type="text" class="form-control search-bar" placeholder="Search" ng-model='searchFilter'>
+    </div>
+
+
+  <!--sort-->
+  <table class="table">
+      <thead>
+        <tr>
+          <th ng-click='sortBy("date")'>Date</th>
+          <th ng-click='sortBy("description")'>Description</th>
+          <th ng-click='sortBy("debit")'>Debits</th>
+          <th ng-click='sortBy("credit")'>Credits</th>
+          <th>Edit</th>
+          <th>Delete</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='transaction in transactions | filter:searchFilter | orderBy:sortOrder track by $index'>
+          <td>{{transaction.date}}</td>
+          <td>{{transaction.description}}</td>
+          <td>{{transaction.debit}}</td>
+          <td>{{transaction.credit}}</td> 
+
+          <td>
+            <button type="button" class="btn btn-success btn-sm" ng-click=''>
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+          </td>
+
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" ng-click='removeTransaction(transaction)'>
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </td>  
+        </tr>
+        <tr class="lastRow">
+          <td></td>
+          <td>Total:</td>
+          <td>{{totalDebit}}</td>
+          <td>{{totalCredit}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>  
+
+
+</body>
+</html>
