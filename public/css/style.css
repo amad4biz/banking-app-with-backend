@@ -1,4 +1,34 @@
-.template {
-  display: none;
+
+.entries {
+	text-align: center;
 }
 
+.title {
+	color: white;
+}
+
+.total-balance {
+	margin-top: 45px;
+	margin-bottom: 30px;
+}
+
+
+.lastRow {
+	font-weight: bold;
+}
+
+.search-div {
+	width: 200px;
+	padding-bottom: 30px;
+}
+
+.total-balance {
+	text-align: center;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+ }
