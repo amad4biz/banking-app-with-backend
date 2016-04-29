@@ -5,42 +5,48 @@ var app = angular.module('transactionApp');
 // controllers.js
 // all controllers
 
-app.controller('mainCtrl', function($scope, Transaction) {
-  console.log('mainCtrl!');
 
+app.controller('mainCtrl', function ($scope) {
+//adding totals
+$scope.totalDebit = 0;
+$scope.totalCredit = 0;
 
-  Transaction.getAll()
-  .then(res => {
-    $scope.transactions = res.data;
-    console.log($scope.transactions)
-  })
-  .catch(err => {
-    console.log('err:', err);
-  });
+  $scope.transactions = [];
 
-  $scope.createTransaction = () => {
-    Transaction.create($scope.newTransaction)
-    .then(res => {
-      var transaction = res.data;
-      $scope.transactions.push(transaction);
-      $scope.newTransaction = null;
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  };
+  $scope.addTransaction = function() {
 
-  $scope.removeTransaction = transaction => {
-    Transaction.remove(transaction)
-    .then(() => {
-      var index = $scope.transactionss.indexOf(transaction);
-      $scope.transactions.splice(index, 1);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+    $scope.transactions.push($scope.newTransaction);
+    $scope.totalDebit += $scope.newTransaction.debit || 0;
+    $scope.totalCredit += $scope.newTransaction.credit || 0;
+    $scope.newTransaction = {};
+
+    // total balance
+    $scope.totalBalance = $scope.totalCredit - $scope.totalDebit;
   };
 
 
+  // remove
+  $scope.removeTransaction = function(transaction) {
+    var index = $scope.transactions.indexOf(transaction);
+    $scope.totalDebit -= $scope.transactions[index].debit || 0;
+    $scope.totalCredit -= $scope.transactions[index].credit || 0;
+    $scope.transactions.splice(index, 1);
 
-});
+    // total balance for delete
+    $scope.totalBalance = $scope.totalCredit - $scope.totalDebit;
+
+  };
+
+
+  //sort when click table header
+  $scope.sortBy = function(order) {
+    if($scope.sortOrder === order) {
+      $scope.sortOrder = `-${order}`;
+    } else {
+      $scope.sortOrder = order;
+    }
+  };
+
+
+
+})
