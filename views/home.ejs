@@ -68,7 +68,7 @@
           <th ng-click='sortBy("description")'>Description</th>
           <th ng-click='sortBy("debit")'>Debits</th>
           <th ng-click='sortBy("credit")'>Credits</th>
-          <th>Edit</th>
+         <!--  <th>Edit</th> -->
           <th>Delete</th>
 
         </tr>
@@ -80,11 +80,11 @@
           <td>{{transaction.debit}}</td>
           <td>{{transaction.credit}}</td> 
 
-          <td>
+<!--           <td>
             <button type="button" class="btn btn-success btn-sm" ng-click=''>
               <span class="glyphicon glyphicon-edit"></span>
             </button>
-          </td>
+          </td> -->
 
             <td>
               <button type="button" class="btn btn-danger btn-sm" ng-click='removeTransaction(transaction)'>
@@ -97,7 +97,7 @@
           <td>Total:</td>
           <td>{{totalDebit}}</td>
           <td>{{totalCredit}}</td>
-          <td></td>
+          <!-- <td></td> -->
           <td></td>
         </tr>
       </tbody>

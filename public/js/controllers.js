@@ -26,6 +26,15 @@ $scope.totalCredit = 0;
     })  
   };
 
+  //get
+  Transaction.getAll()
+  .then(res => {
+    $scope.transactions = res.data;
+   })
+  .catch(err => {
+    console.log('err:', err);
+  });
+
 
   // remove
   $scope.removeTransaction = function(transaction) {
