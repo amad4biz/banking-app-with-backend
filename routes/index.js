@@ -3,24 +3,25 @@
 var express = require('express');
 var router = express.Router();
 
-var moment = require('moment');
 var Transaction = require('../models/transaction');
 
 //  GET /
 router.get('/', (req, res) => {
+  console.log(1)
   Transaction.get((err, transactions) => {
+  console.log(2)
+
     if(err) {
-      res.render('error', {error: err})
-    } else {
+      console.log(err)
+      return res.render('error', {error: err})
+    } 
+    // else {
 
-      transactions = transactions.map(transaction => {
-        transaction.date = moment(t.date, 'X').format('l');
-
-        return transaction;
-      })
+    //     return transactions;
+    //   }
 
       res.render('home', {transactions: transactions});
-    }
+    
   })
 })
 
