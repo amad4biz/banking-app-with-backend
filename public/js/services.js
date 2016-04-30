@@ -18,7 +18,7 @@ app.service('Transaction', function($http) {
   };
 
   this.remove = transaction => {
-    return $http.delete(`/api/transactions/${transation.id}`);
+    return $http.delete(`/api/transactions/${transaction.id}`);
   };
 
 

@@ -6,9 +6,29 @@ var app = angular.module('transactionApp');
 // all controllers
 
 app.controller('mainCtrl', function ($scope, Transaction) {
-//adding totals
-$scope.totalDebit = 0;
-$scope.totalCredit = 0;
+
+  $scope.totalDebit = 0;
+  $scope.totalCredit = 0;  
+
+// get
+  Transaction.getAll()
+  .then(res => {
+    $scope.transactions = res.data;
+    console.log('data:', res.data);
+    console.log(res.data[0].credit);
+    for (var i = 0; i < res.data.length; i++) {
+       $scope.totalDebit += res.data[i].debit;
+       $scope.totalCredit += res.data[i].credit;
+    }
+    // total balance
+    $scope.totalBalance = $scope.totalCredit - $scope.totalDebit;
+   })
+  .catch(err => {
+    console.log('err:', err)
+
+
+    $scope.totalCredit = $scope.transactions[0].credit;
+  });
 
   $scope.transactions = [];
 
@@ -26,18 +46,19 @@ $scope.totalCredit = 0;
     })  
   };
 
-  //get
-  Transaction.getAll()
-  .then(res => {
-    $scope.transactions = res.data;
-   })
-  .catch(err => {
-    console.log('err:', err);
-  });
+
 
 
   // remove
   $scope.removeTransaction = function(transaction) {
+    Transaction.remove(transaction) 
+    .then(res => {
+     
+    })
+    .catch(err => {
+    console.log('err:', err);
+    });
+
     var index = $scope.transactions.indexOf(transaction);
     $scope.totalDebit -= $scope.transactions[index].debit || 0;
     $scope.totalCredit -= $scope.transactions[index].credit || 0;
